@@ -6,9 +6,11 @@ import Link from "next/link";
 import { toast } from "react-toastify";
 import { profileService } from "@/services/api";
 import { useAuthStore } from "@/store/auth";
+import { useRouter } from "next/navigation";
 
 const IntegrestPageUi = () => {
   const token = useAuthStore((state) => state.token);
+  const router = useRouter();
 
   const fetchProfile = useCallback(async () => {
     try {
@@ -32,6 +34,7 @@ const IntegrestPageUi = () => {
         interests: selectedInterests,
       });
       toast.success("Profile updated successfully!");
+      router.push("/profile");
     } catch (error) {
       console.error("Error updating profile:", error);
     }
